@@ -1,0 +1,23 @@
+{
+  "name": "checkvisatime",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lecsar/checkVisaTime.git"
+  },
+  "author": "Dmitry Levshin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lecsar/checkVisaTime/issues"
+  },
+  "homepage": "https://github.com/Lecsar/checkVisaTime#readme",
+  "dependencies": {
+    "dotenv": "^9.0.2",
+    "node-fetch": "^2.6.1"
+  }
+}
