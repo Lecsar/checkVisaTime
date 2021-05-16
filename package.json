@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/Lecsar/checkVisaTime#readme",
   "dependencies": {
+    "deep-equal": "^2.0.5",
     "dotenv": "^9.0.2",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "node-telegram-bot-api": "^0.53.0"
   }
 }

@@ -1,12 +1,12 @@
 require('dotenv').config();
 
-const apiGetTimeInformation = require('./apiGetTimeInformation');
-const {EKATERINBURG, HAS_AVAILABLE_SLOTS} = require('./constants');
-
-const getDateInfo = require('./helpers/getDateInfo');
-const printDatesInfo = require('./helpers/printDatesInfo');
+const checkAvailableVisaDates = require('./checkAvailableVisaDates');
+const {MOSCOW} = require('./constants');
 
 const INTERESTING_DATES = [
+  '2021-05-24',
+  '2021-05-25',
+  '2021-05-26',
   '2021-05-27',
   '2021-05-28',
   '2021-05-29',
@@ -22,22 +22,6 @@ const INTERESTING_DATES = [
   '2021-06-08',
 ];
 
-const promises = INTERESTING_DATES.map((date) =>
-  apiGetTimeInformation(date, EKATERINBURG).then((timeMap) => {
-    const dateInfo = getDateInfo(date, timeMap);
-    return dateInfo;
-  })
-);
+const CHECKING_INERVAL = 5;
 
-Promise.all(promises).then((datesInfo) => {
-  //   printDatesInfo(datesInfo);
-
-  const availableDatesArr = datesInfo.filter(({status}) => status === HAS_AVAILABLE_SLOTS);
-
-  const availableDatesMap = availableDatesArr.reduce((acc, {date, availableTime}) => {
-    acc[date] = availableTime;
-    return acc;
-  }, {});
-
-  console.log(availableDatesMap);
-});
+checkAvailableVisaDates(INTERESTING_DATES, MOSCOW, CHECKING_INERVAL);

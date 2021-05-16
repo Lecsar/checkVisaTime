@@ -17,6 +17,8 @@ const apiGetTimeInformation = (date, city) =>
   })
     .then((res) => res.json())
     .then((data) => {
+      console.log(data);
+
       if (data && 'mapData' in data) {
         return data.mapData;
       }
@@ -27,7 +29,7 @@ const apiGetTimeInformation = (date, city) =>
       console.error('Ошибка при запросе');
       console.error(err);
 
-      return null;
+      return Promise.reject();
     });
 
 module.exports = apiGetTimeInformation;
