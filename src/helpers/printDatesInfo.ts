@@ -1,18 +1,19 @@
-const {ERROR, NO_RECORD, NO_AVAILABLE_SLOTS, HAS_AVAILABLE_SLOTS} = require('../constants');
+import {RecordStatusEnum} from '../enums';
+import {IDayInfo} from '../types';
 
-const printDatesInfo = (datesInfo) => {
-  datesInfo.forEach(({date, status, availableTime}) => {
+export const printDatesInfo = (dayInfos: IDayInfo[]) => {
+  dayInfos.forEach(({date, status, availableTime}) => {
     switch (status) {
-      case ERROR:
+      case RecordStatusEnum.ERROR:
         console.log(`${date}: Ошибка`);
         break;
-      case NO_RECORD:
+      case RecordStatusEnum.NO_RECORD:
         console.log(`${date}: Нет записи`);
         break;
-      case NO_AVAILABLE_SLOTS:
+      case RecordStatusEnum.NO_AVAILABLE_SLOTS:
         console.log(`${date}: Нет доступных слотов`);
         break;
-      case HAS_AVAILABLE_SLOTS:
+      case RecordStatusEnum.HAS_AVAILABLE_SLOTS:
         console.log(`${date}: Доступные слоты ${availableTime.join(' ')}`);
         break;
       default:
@@ -21,5 +22,3 @@ const printDatesInfo = (datesInfo) => {
     }
   });
 };
-
-module.exports = printDatesInfo;

@@ -1,6 +1,6 @@
-const addZero = (number) => (number >= 10 ? String(number) : `0${number}`);
+const addZero = (number: number) => (number >= 10 ? String(number) : `0${number}`);
 
-const getNowTime = () => {
+export const getNowTime = () => {
   const now = new Date();
 
   const year = now.getFullYear();
@@ -13,5 +13,3 @@ const getNowTime = () => {
 
   return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 };
-
-module.exports = getNowTime;
