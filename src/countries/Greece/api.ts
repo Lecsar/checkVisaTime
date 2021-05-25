@@ -1,23 +1,24 @@
 import fetch from 'node-fetch';
 
-import {getNowTime} from './helpers/getNowTime';
-import {AvailableCitiesEnum} from './enums';
-import {TTimeMap, YearMonthDay} from './types';
+import {getNowTime} from '../../helpers/getNowTime';
+import {TTimeMap, YearMonthDay} from '../../types';
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const TOKEN = process.env.TOKEN || '';
+
+const AVAILABLE_CITIES = {
+  MOSCOW: 'RUS-001',
+  EKATERINBURG: 'RUS-033',
+};
+
+export type TGreeceAvailableCityName = keyof typeof AVAILABLE_CITIES;
 
 interface IResponseData {
   mapData: TTimeMap;
 }
 
-interface IResult {
-  hasError: boolean;
-  timeMap: TTimeMap;
-}
-
-export const apiGetTimeInformation = (date: YearMonthDay, city: AvailableCitiesEnum): Promise<IResult> =>
-  fetch(`https://ru-gr.gvcworld.eu/proxy/vac/${city}/date/getValidHours/${date}/1`, {
+export const apiGetGreeceDayInfo = (date: YearMonthDay, city: TGreeceAvailableCityName) =>
+  fetch(`https://ru-gr.gvcworld.eu/proxy/vac/${AVAILABLE_CITIES[city]}/date/getValidHours/${date}/1`, {
     method: 'POST',
     body: `"${getNowTime()}"`,
     headers: {

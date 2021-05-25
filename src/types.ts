@@ -16,6 +16,11 @@ export type YearMonthDay = string & {
 
 export type TTimeMap = Record<Time, boolean>;
 
+export interface IApiResult {
+  hasError: boolean;
+  timeMap: TTimeMap;
+}
+
 export interface IDayInfo {
   date: YearMonthDay;
   status: RecordStatusEnum;
