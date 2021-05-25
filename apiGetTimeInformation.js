@@ -17,8 +17,6 @@ const apiGetTimeInformation = (date, city) =>
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
-
       if (data && 'mapData' in data) {
         return data.mapData;
       }
