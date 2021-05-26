@@ -3,7 +3,7 @@ import {RecordStatusEnum} from '../enums';
 
 import {getAvailableTime} from './getAvailableTime';
 
-export const getDateInfo = (date: YearMonthDay, timeMap: TTimeMap): IDayInfo => {
+export const getDateInfo = (date: YearMonthDay, timeMap?: TTimeMap): IDayInfo => {
   if (!timeMap) {
     return {date, status: RecordStatusEnum.ERROR, availableTime: []};
   }
