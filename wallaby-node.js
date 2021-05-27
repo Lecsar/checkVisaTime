@@ -3,11 +3,10 @@ module.exports = function (w) {
     files: ['src/**/*.ts'],
     tests: ['__tests__/**/*.test.ts'],
 
-
     env: {
       type: 'node',
     },
 
-    testFramework: 'jasmine',
+    testFramework: 'jest',
   };
 };
