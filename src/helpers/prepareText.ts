@@ -20,6 +20,7 @@ export const prepareText = (dayInfos: IDayInfo[]) => {
 
   dayInfos.forEach(({date: dateTime, availableTime}) => {
     const [date] = dateTime.split('T');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_, month, day] = date.split('-');
 
     result += `${day} ${MONTH_NAME_DICTIONARY[month]}`;

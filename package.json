@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon"
+    "start": "nodemon",
+    "test": "NODE_ENV=test jest",
+    "lint:js": "eslint ./src"
   },
   "repository": {
     "type": "git",
@@ -32,7 +34,14 @@
     "@types/node": "^15.6.1",
     "@types/node-fetch": "^2.5.10",
     "@types/node-telegram-bot-api": "^0.51.1",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
+    "babel-eslint": "^10.1.0",
     "babel-jest": "^27.0.1",
+    "eslint": "^7.27.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.3",
+    "eslint-plugin-jest": "^24.3.6",
     "jasmine": "^3.7.0",
     "nodemon": "^2.0.7",
     "source-map-support": "^0.5.19",
