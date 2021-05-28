@@ -12,11 +12,15 @@ const SUBSRIBED_CHAT_IDS = (process.env.SUBSRIBED_CHAT_IDS || '').split(';');
 
 const createNotifier = (city: string) =>
   createNewValueNotifier(
+    (daysInfo: IDayInfo[]) => daysInfo.filter((i) => i.status === RecordStatusEnum.HAS_AVAILABLE_SLOTS),
     (availableDatesArr) => {
-      const message = `${city}:\n${prepareText(availableDatesArr)}`;
-      notifyAllMembers(SUBSRIBED_CHAT_IDS, message);
-    },
-    (daysInfo: IDayInfo[]) => daysInfo.filter((i) => i.status === RecordStatusEnum.HAS_AVAILABLE_SLOTS)
+      const hasAvailableDates = availableDatesArr.length > 0;
+
+      if (hasAvailableDates) {
+        const message = `${city}:\n${prepareText(availableDatesArr)}`;
+        notifyAllMembers(SUBSRIBED_CHAT_IDS, message);
+      }
+    }
   );
 
 export const subscribeOnApi = (
@@ -28,7 +32,7 @@ export const subscribeOnApi = (
       dates,
       apiGetDayInfo: (date) => apiGetGreeceDayInfo(date, city),
       onNotify: createNotifier(city),
-      intervalMin: 0.1,
+      intervalMin: 5,
     });
   });
 };

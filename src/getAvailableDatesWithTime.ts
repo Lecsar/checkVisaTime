@@ -1,7 +1,7 @@
 import {IApiResult, IDayInfo, YearMonthDay} from './types';
-import {RecordStatusEnum} from './enums';
 
 import {getDateInfo} from './helpers/getDateInfo';
+import {createSubscribtion} from './helpers/createSubscribtion';
 
 interface IParams {
   dates: YearMonthDay[];
@@ -10,25 +10,12 @@ interface IParams {
   onNotify: (dayInfos: IDayInfo[]) => void;
 }
 
-let couldMakeRequest = true;
-let timerID: NodeJS.Timeout | null = null;
-
 export const getAvailableDatesWithTime = ({dates, intervalMin = 5, apiGetDayInfo, onNotify}: IParams) => {
   const checkInfo = () => {
-    if (!couldMakeRequest) {
-      if (timerID) {
-        clearInterval(timerID);
-        timerID = null;
-      }
-
-      return;
-    }
-
     const promises = dates.map((date) =>
       apiGetDayInfo(date).then(({hasError, timeMap}) => {
         if (hasError) {
-          couldMakeRequest = false;
-          return;
+          return Promise.reject(`Error on ${date}`);
         }
 
         const dateInfo = getDateInfo(date, timeMap);
@@ -36,17 +23,8 @@ export const getAvailableDatesWithTime = ({dates, intervalMin = 5, apiGetDayInfo
       })
     );
 
-    Promise.all(promises).then((daysInfo) => {
-      if (!couldMakeRequest) {
-        return;
-      }
-
-      onNotify(daysInfo.filter(Boolean).map((i) => i!));
-    });
+    return Promise.all(promises).then(onNotify);
   };
 
-  //   выполняем сразу
-  checkInfo();
-  // встаем на цикл
-  timerID = setInterval(checkInfo, intervalMin * 1000 * 60);
+  createSubscribtion(checkInfo, intervalMin * 1000 * 60);
 };
